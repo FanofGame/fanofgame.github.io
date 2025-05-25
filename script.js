@@ -9,7 +9,7 @@ toggleBtn.addEventListener('click', () => {
 // Page content data
 const pages = {
   home: {
-    title: "FanofGamess's Website",
+    title: "Sleek.",
     text: "Your sleek, modern site powered by GitHub Pages. Explore. Create. Game on.",
     buttonText: "Visit My GitHub",
     buttonLink: "https://github.com/FanofGame"
@@ -28,7 +28,7 @@ const pages = {
   }
 };
 
-// Buttons in sidebar
+// Sidebar buttons
 const buttons = sidebar.querySelectorAll('ul li button');
 
 // Main content elements
@@ -36,9 +36,7 @@ const mainTitle = document.querySelector('main h1');
 const mainText = document.querySelector('main p');
 const mainButton = document.querySelector('main a.button');
 
-// Function to switch page
 function switchPage(pageKey) {
-  // Update active button
   buttons.forEach(btn => {
     if (btn.dataset.page === pageKey) {
       btn.classList.add('active');
@@ -49,28 +47,26 @@ function switchPage(pageKey) {
     }
   });
 
-  // Update main content
   const page = pages[pageKey];
   if (!page) return;
 
   mainTitle.textContent = page.title;
-  // Replace newlines with <br> for multiline display
-  mainText.innerHTML = page.text.replace(/\n/g, '<br>');
+  mainText.textContent = page.text;
   mainButton.textContent = page.buttonText;
   mainButton.href = page.buttonLink;
 
-  // Close sidebar on small screens after selection
+  // Close sidebar on mobile after selecting page
   if (window.innerWidth <= 768) {
     sidebar.classList.add('collapsed');
   }
 }
 
-// Add click listeners to buttons
+// Attach event listeners for buttons
 buttons.forEach(button => {
   button.addEventListener('click', () => {
     switchPage(button.dataset.page);
   });
 });
 
-// Initialize page to home on load
+// Initialize default page
 switchPage('home');
