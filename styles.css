@@ -1,186 +1,54 @@
-/* Reset & base */
-* {
-  box-sizing: border-box;
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bitter&family=Young+Serif&display=swap');
+
+body {
+  background-color: #121212; /* dark background */
+  color: #e0e0e0; /* light gray text */
+  font-family: 'Bitter', serif;
   margin: 0;
   padding: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #111;
 }
 
-body, html {
-  height: 100%;
-  background: #f5f5f7;
-  display: flex;
-  min-height: 100vh;
-  overflow-x: hidden;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Young Serif', serif;
+  color: #ffffff; /* white headings */
+  margin-bottom: 1rem;
 }
 
-/* Sidebar */
-#sidebar {
-  background: #fff;
-  width: 280px;
-  box-shadow: 2px 0 15px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  transition: width 0.3s ease;
-  position: fixed;
-  height: 100vh;
-  overflow: hidden;
+p {
+  font-family: 'Bitter', serif;
+  color: #c0c0c0; /* lighter gray for paragraphs */
+  line-height: 1.6;
 }
 
-#sidebar.collapsed {
-  width: 70px;
-}
-
-/* Toggle Button (hamburger) */
-.toggle-btn {
-  padding: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid #eee;
-  user-select: none;
-  transition: background 0.2s ease;
-}
-
-.toggle-btn:hover {
-  background: #f0f0f3;
-}
-
-/* Hamburger icon lines */
-.toggle-btn .line {
-  width: 25px;
-  height: 3px;
-  background-color: #111;
-  margin: 4px 0;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-/* Animate hamburger to X on toggle */
-#sidebar.collapsed .toggle-btn .line:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-#sidebar.collapsed .toggle-btn .line:nth-child(2) {
-  opacity: 0;
-}
-
-#sidebar.collapsed .toggle-btn .line:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
-}
-
-/* Sidebar nav */
-#sidebar ul {
-  list-style: none;
-  margin-top: 40px;
-}
-
-#sidebar ul li {
-  margin: 15px 0;
-  text-align: left;
-}
-
-#sidebar ul li button {
-  background: none;
-  border: none;
-  width: 100%;
-  font-size: 18px;
-  padding: 10px 30px;
-  text-align: left;
-  cursor: pointer;
-  color: #333;
-  transition: background 0.25s ease, color 0.25s ease;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-weight: 600;
-  border-left: 3px solid transparent;
-}
-
-#sidebar ul li button.active,
-#sidebar ul li button:hover {
-  background: #efefef;
-  color: #0070f3;
-  border-left: 3px solid #0070f3;
-  outline: none;
-}
-
-/* Hide text when collapsed */
-#sidebar.collapsed ul li button {
-  padding-left: 20px;
-  justify-content: center;
-  font-size: 0;
-}
-
-#sidebar.collapsed ul li button svg {
-  margin: 0;
-}
-
-/* Main content */
-main {
-  margin-left: 280px;
-  padding: 40px 60px;
-  flex: 1;
-  transition: margin-left 0.3s ease;
-}
-
-#sidebar.collapsed ~ main {
-  margin-left: 70px;
-}
-
-main h1 {
-  font-weight: 900;
-  font-size: 3.6rem;
-  margin-bottom: 20px;
-  color: #222;
-  letter-spacing: -0.05em;
-}
-
-main p {
-  font-size: 1.3rem;
-  line-height: 1.8;
-  margin-bottom: 30px;
-  color: #444;
-  white-space: pre-line; /* preserves line breaks */
-}
-
-main a.button {
-  padding: 14px 28px;
-  background: #0070f3;
-  color: white;
-  font-weight: 700;
-  border-radius: 6px;
+a.button {
+  background-color: #333333; /* dark gray button */
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
   text-decoration: none;
-  transition: background-color 0.25s ease;
+  border-radius: 6px;
   display: inline-block;
+  transition: background-color 0.3s ease;
+  font-family: 'Bitter', serif;
 }
 
-main a.button:hover {
-  background-color: #005bb5;
+a.button:hover {
+  background-color: #555555; /* lighter gray on hover */
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  #sidebar {
-    position: fixed;
-    z-index: 10;
-    height: 100%;
-    left: 0;
-    top: 0;
-  }
-
-  main {
-    margin-left: 0;
-    padding: 20px 20px 80px;
-  }
-
-  #sidebar.collapsed {
-    width: 0;
-  }
-
-  #sidebar.collapsed ul li button {
-    display: none;
-  }
+#sidebar {
+  background-color: #1e1e1e; /* dark sidebar */
+  color: #bbbbbb;
 }
+
+#sidebar ul li button.active {
+  background-color: #444444;
+  color: #ffffff;
+}
+
+#sidebar ul li button:hover {
+  background-color: #555555;
+  color: #fff;
+}
+
+/* Other text elements default to Bitter font */
