@@ -1,79 +1,186 @@
-/* Reset some defaults */
+/* Reset & base */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background: #f9f9f9;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #111;
 }
 
-header {
+body, html {
+  height: 100%;
+  background: #f5f5f7;
   display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 15px 20px;
-  background: #fff;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-.hamburger {
-  width: 30px;
-  height: 25px;
-  cursor: pointer;
+/* Sidebar */
+#sidebar {
+  background: #fff;
+  width: 280px;
+  box-shadow: 2px 0 15px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  transition: width 0.3s ease;
+  position: fixed;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.hamburger span {
-  display: block;
-  height: 4px;
-  width: 100%;
-  background-color: #000;
+#sidebar.collapsed {
+  width: 70px;
+}
+
+/* Toggle Button (hamburger) */
+.toggle-btn {
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #eee;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background: #f0f0f3;
+}
+
+/* Hamburger icon lines */
+.toggle-btn .line {
+  width: 25px;
+  height: 3px;
+  background-color: #111;
+  margin: 4px 0;
   border-radius: 2px;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
 }
 
-/* Animate hamburger to X */
-.hamburger.active span:nth-child(1) {
+/* Animate hamburger to X on toggle */
+#sidebar.collapsed .toggle-btn .line:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
 
-.hamburger.active span:nth-child(2) {
+#sidebar.collapsed .toggle-btn .line:nth-child(2) {
   opacity: 0;
 }
 
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+#sidebar.collapsed .toggle-btn .line:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
-.home-link {
+/* Sidebar nav */
+#sidebar ul {
+  list-style: none;
+  margin-top: 40px;
+}
+
+#sidebar ul li {
+  margin: 15px 0;
+  text-align: left;
+}
+
+#sidebar ul li button {
+  background: none;
+  border: none;
+  width: 100%;
+  font-size: 18px;
+  padding: 10px 30px;
+  text-align: left;
+  cursor: pointer;
+  color: #333;
+  transition: background 0.25s ease, color 0.25s ease;
   display: flex;
   align-items: center;
-  font-size: 18px;
-  color: #000;
+  gap: 12px;
+  font-weight: 600;
+  border-left: 3px solid transparent;
+}
+
+#sidebar ul li button.active,
+#sidebar ul li button:hover {
+  background: #efefef;
+  color: #0070f3;
+  border-left: 3px solid #0070f3;
+  outline: none;
+}
+
+/* Hide text when collapsed */
+#sidebar.collapsed ul li button {
+  padding-left: 20px;
+  justify-content: center;
+  font-size: 0;
+}
+
+#sidebar.collapsed ul li button svg {
+  margin: 0;
+}
+
+/* Main content */
+main {
+  margin-left: 280px;
+  padding: 40px 60px;
+  flex: 1;
+  transition: margin-left 0.3s ease;
+}
+
+#sidebar.collapsed ~ main {
+  margin-left: 70px;
+}
+
+main h1 {
+  font-weight: 900;
+  font-size: 3.6rem;
+  margin-bottom: 20px;
+  color: #222;
+  letter-spacing: -0.05em;
+}
+
+main p {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: #444;
+  white-space: pre-line; /* preserves line breaks */
+}
+
+main a.button {
+  padding: 14px 28px;
+  background: #0070f3;
+  color: white;
+  font-weight: 700;
+  border-radius: 6px;
   text-decoration: none;
-  user-select: none;
-  gap: 8px;
-  transition: color 0.3s ease;
+  transition: background-color 0.25s ease;
+  display: inline-block;
 }
 
-.home-link:hover {
-  color: #0078f4;
+main a.button:hover {
+  background-color: #005bb5;
 }
 
-.home-link img {
-  width: 24px;
-  height: 24px;
-  filter: none;
-  transition: transform 0.3s ease;
-}
+/* Responsive */
+@media (max-width: 768px) {
+  #sidebar {
+    position: fixed;
+    z-index: 10;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
 
-.home-link:hover img {
-  transform: scale(1.2);
-}
+  main {
+    margin-left: 0;
+    padding: 20px 20px 80px;
+  }
 
+  #sidebar.collapsed {
+    width: 0;
+  }
+
+  #sidebar.collapsed ul li button {
+    display: none;
+  }
+}
