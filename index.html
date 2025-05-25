@@ -7,27 +7,17 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-  <nav id="sidebar" class="collapsed">
-    <button class="toggle-btn" aria-label="Toggle menu">&#9776;</button>
-    <h2>FanofGamess</h2>
-    <ul>
-      <li><button class="active" data-page="home" aria-current="page">
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-6 0h6" />
-        </svg>
-        Home
-      </button></li>
-      <li><button data-page="about">About</button></li>
-      <li><button data-page="contact">Contact</button></li>
-    </ul>
-  </nav>
-
-  <main>
-    <h1>FanofGamess's Website</h1>
-    <p>Your sleek, modern site powered by GitHub Pages. Explore. Create. Game on.</p>
-    <a href="https://github.com/FanofGame" class="button" target="_blank" rel="noopener noreferrer">Visit My GitHub</a>
-  </main>
+  <header>
+    <div id="hamburger" class="hamburger" aria-label="Menu" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <a href="#" class="home-link" title="Home">
+      <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/home.svg" alt="Home Icon" />
+      Home
+    </a>
+  </header>
 
   <script src="script.js"></script>
 </body>
