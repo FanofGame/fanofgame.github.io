@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Sleek modern website with navigation sidebar">
-  <title>Sleek.</title>
+  <meta name="description" content="LudumLabs website with navigation sidebar">
+  <title>LudumLabs</title>
 
   <!-- Preload Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,7 +61,7 @@
       left: 0;
       width: 220px;
       height: 100vh;
-      background: var(--primary-light);
+      background: white;
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
@@ -154,9 +154,9 @@
       transition: var(--transition);
     }
 
-    #go-home:hover,
-    #go-home:focus-visible {
-      color: var(--primary-color);
+    #sidebar.collapsed #go-home,
+    #sidebar.collapsed ul {
+      display: none;
     }
 
     /* Main content */
@@ -253,43 +253,6 @@
       color: var(--text-light);
     }
 
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 220px;
-      right: 0;
-      height: 60px;
-      background: transparent;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      padding: 0 20px;
-      font-family: 'PT Serif', serif;
-      font-size: 1.2rem;
-      transition: left var(--transition);
-      z-index: 900;
-    }
-
-    #sidebar.collapsed ~ header {
-      left: 60px;
-    }
-
-    header button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 5px 15px;
-      transition: var(--transition);
-    }
-
-    header button:hover,
-    header button:focus-visible,
-    header button.active {
-      background-color: var(--accent-color);
-      border-radius: var(--border-radius);
-    }
-
     /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -319,14 +282,6 @@
       #sidebar.collapsed ~ main {
         margin-left: 60px;
       }
-
-      header {
-        left: 0;
-      }
-
-      #sidebar.collapsed ~ header {
-        left: 60px;
-      }
     }
 
     @media (max-width: 480px) {
@@ -349,17 +304,12 @@
       <span></span>
     </button>
 
-    <button id="go-home" aria-label="Go to home page">Sleek.</button>
+    <button id="go-home" aria-label="Go to home page">LudumLabs</button>
 
     <ul>
       <li><button data-page="about" aria-label="About Me page">About Me</button></li>
-      <li><button data-page="download" aria-label="Download ShowFPS page">Download ShowFPS</button></li>
     </ul>
   </div>
-
-  <header>
-    <button data-page="about" aria-label="About Me page">About Me</button>
-  </header>
 
   <main role="main">
     <h1 class="fade-in">Loading...</h1>
@@ -377,8 +327,8 @@
       // Page content data
       const pages = {
         home: {
-          title: "Sleek.",
-          text: "Your sleek, modern site powered by GitHub Pages. Explore. Create. Game on.",
+          title: "LudumLabs",
+          text: "Your game development and modding resource. Explore. Create. Game on.",
           buttonText: "Visit My GitHub",
           buttonLink: "https://github.com/FanofGame",
           showModCard: true
@@ -389,20 +339,12 @@
           buttonText: "Learn More",
           buttonLink: "#",
           showModCard: false
-        },
-        download: {
-          title: "Download ShowFPS",
-          text: "Get the mod that shows your FPS in Minecraft.",
-          buttonText: "Download",
-          buttonLink: "https://edge.forgecdn.net/files/6548/369/showfps-1.01.jar",
-          showModCard: false
         }
       };
 
       // DOM elements
       const buttons = sidebar.querySelectorAll('ul li button');
       const homeBtn = document.getElementById('go-home');
-      const headerAboutBtn = document.querySelector('header button');
       const mainTitle = document.querySelector('main h1');
       const mainText = document.querySelector('main p');
       const mainButton = document.querySelector('main a.button');
@@ -447,9 +389,6 @@
           btn.setAttribute('aria-current', btn.dataset.page === pageKey ? 'page' : 'false');
         });
         
-        headerAboutBtn.classList.toggle('active', pageKey === 'about');
-        headerAboutBtn.setAttribute('aria-current', pageKey === 'about' ? 'page' : 'false');
-
         // Update main content
         const page = pages[pageKey] || pages.home;
         
@@ -494,7 +433,6 @@
       });
 
       homeBtn.addEventListener('click', () => switchPage('home'));
-      headerAboutBtn.addEventListener('click', () => switchPage('about'));
 
       // Initialize with home page
       switchPage('home');
