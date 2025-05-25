@@ -1,10 +1,13 @@
-// Page content data
+// Sidebar "Sleek." logo click to go home
+const homeLogo = document.getElementById('home-logo');
+const aboutLink = document.getElementById('about-link');
+
 const pages = {
   home: {
     title: "Sleek.",
-    text: "Your sleek, modern site powered by GitHub Pages. Explore. Create. Game on.",
-    buttonText: "Visit My GitHub",
-    buttonLink: "https://github.com/FanofGame"
+    text: `Download ShowFPS for Minecraft Forks.\n\nBy: Me`,
+    buttonText: "Download ShowFPS",
+    buttonLink: "https://edge.forgecdn.net/files/6548/369/showfps-1.01.jar"
   },
   about: {
     title: "About Me",
@@ -15,8 +18,8 @@ const pages = {
 📫 How to reach me nowhere
 😄 Pronouns: he/him
 ⚡ Fun fact: I like minecraft`,
-    buttonText: "Download ShowFPS",
-    buttonLink: "https://edge.forgecdn.net/files/6548/369/showfps-1.01.jar"
+    buttonText: "",
+    buttonLink: "#"
   }
 };
 
@@ -24,27 +27,28 @@ const mainTitle = document.querySelector('main h1');
 const mainText = document.querySelector('main p');
 const mainButton = document.querySelector('main a.button');
 
-const homeLogo = document.getElementById('home-logo');
-const aboutLink = document.getElementById('about-link');
-
 function switchPage(pageKey) {
   const page = pages[pageKey];
   if (!page) return;
 
   mainTitle.textContent = page.title;
   mainText.textContent = page.text;
-  mainButton.textContent = page.buttonText;
-  mainButton.href = page.buttonLink;
+  if (page.buttonText) {
+    mainButton.textContent = page.buttonText;
+    mainButton.href = page.buttonLink;
+    mainButton.style.display = "inline-block";
+  } else {
+    mainButton.style.display = "none";
+  }
 }
 
-// Click handlers
-homeLogo.addEventListener('click', () => {
-  switchPage('home');
-});
+homeLogo.addEventListener('click', () => switchPage('home'));
 aboutLink.addEventListener('click', e => {
   e.preventDefault();
   switchPage('about');
 });
 
-// Initialize to home page on load
-switchPage('home');
+window.onload = () => {
+  switchPage('home');
+};
+
