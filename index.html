@@ -1,15 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sleek.</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bitter&family=PT+Serif&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Import Young Serif from Google Fonts as PT Serif since no direct Young Serif in Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Bitter&family=PT+Serif&display=swap');
+
+    /* Reset and base styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #BFBBF;
+      color: #212020;
+      font-family: 'Bitter', serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Sidebar */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background: #e1dfff;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
+      transition: width 0.3s ease;
+      z-index: 10;
+    }
+
+    #sidebar.collapsed {
+      width: 60px;
+    }
+
+    /* Hamburger (three lines) */
+    #sidebar .toggle-btn {
+      cursor: pointer;
+      width: 40px;
+      height: 30px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    #sidebar .toggle-btn span {
+      display: block;
+      height: 4px;
+      background-color: #212020;
+      border-radius: 2px;
+      transition: 0.3s ease;
+    }
+
+    #sidebar.collapsed .toggle-btn span:nth-child(2) {
+      opacity: 0;
+    }
+    #sidebar.collapsed .toggle-btn span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+    #sidebar.collapsed .toggle-btn span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Sidebar navigation */
+    #sidebar ul {
+      list-style: none;
+      width: 100%;
+      text-align: center;
+    }
+    #sidebar ul li {
+      margin: 20px 0;
+    }
+    #sidebar ul li button {
+      background: none;
+      border: none;
+      font-family: 'PT Serif', serif;
+      font-size: 1.2rem;
+      color: #212020;
+      cursor: pointer;
+      width: 100%;
+      padding: 10px 0;
+      transition: background-color 0.3s ease;
+    }
+    #sidebar ul li button:hover,
+    #sidebar ul li button.active {
+      background-color: #b2abff;
+      font-weight: bold;
+    }
+
+    /* Main content */
+    main {
+      margin-left: 220px;
+      padding: 40px;
+      flex-grow: 1;
+      transition: margin-left 0.3s ease;
+    }
+    #sidebar.collapsed ~ main {
+      margin-left: 60px;
+    }
+
+    main h1 {
+      font-family: 'PT Serif', serif;
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    main p {
+      font-family: 'Bitter', serif;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+    main a.button {
+      font-family: 'Bitter', serif;
+      background-color: #212020;
+      color: #BFBBF;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+    }
+    main a.button:hover {
+      background-color: #4b47c4;
+    }
+
+    /* Header on top */
+    header {
+      position: fixed;
+      top: 0;
+      left: 220px;
+      right: 0;
+      height: 60px;
+      background: transparent;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0 20px;
+      font-family: 'PT Serif', serif;
+      font-size: 1.2rem;
+      color: #212020;
+      transition: left 0.3s ease;
+      z-index: 5;
+    }
+    #sidebar.collapsed ~ header {
+      left: 60px;
+    }
+    header button {
+      background: none;
+      border: none;
+      font-family: 'PT Serif', serif;
+      cursor: pointer;
+      color: #212020;
+      font-size: 1.2rem;
+      padding: 5px 15px;
+      transition: background-color 0.3s ease;
+    }
+    header button:hover {
+      background-color: #b2abff;
+      border-radius: 5px;
+    }
+  </style>
+</head>
 <body>
-  <nav id="sidebar" aria-label="Main navigation">
-    <div class="logo" id="home-logo" role="button" tabindex="0" aria-label="Go to Home page">Sleek.</div>
-  </nav>
 
-  <a href="#" id="about-link" aria-label="About Me">About Me</a>
+  <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
+    <div class="toggle-btn" aria-label="Toggle sidebar" tabindex="0" role="button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-  <main>
-    <h1></h1>
+    <button id="go-home" aria-label="Go to home page">Sleek.</button>
+
+    <ul>
+      <li><button data-page="about">About Me</button></li>
+      <li><button data-page="download">Download ShowFPS</button></li>
+    </ul>
+  </div>
+
+  <header>
+    <button data-page="about" aria-label="Go to About Me">About Me</button>
+  </header>
+
+  <main role="main" tabindex="0">
+    <h1>Loading...</h1>
     <p></p>
     <a class="button" href="#" target="_blank" rel="noopener noreferrer"></a>
+    <p style="font-size:0.9rem; margin-top:-20px; color:#555;">By: Me</p>
   </main>
 
-  <script src="script.js"></script>
-</body>
+  <script>
+    // Sidebar toggle for mobile
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = sidebar.querySelector('.toggle-btn');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+    });
+
+    // Page content data
+    const pages = {
+      home: {
+        title: "Sleek.",
+        text: "Your sleek, modern site powered by GitHub Pages. Explore. Create. Game on.",
+        buttonText: "Visit My GitHub",
+        buttonLink: "https://github.com/FanofGame"
+      },
+      about: {
+        title: "About Me",
+        text: "👋 Hi, I’m @FanofGamess\n👀 I’m interested in Minecraft Forks\n🌱 I’m currently learning how to fork mods to newer versions\n💞️ I’m looking to collaborate on nothing\n📫 How to reach me nowhere\n😄 Pronouns: he/him\n⚡ Fun fact: I like minecraft",
+        buttonText: "Learn More",
+        buttonLink: "#"
+      },
+      download: {
+        title: "Download ShowFPS",
+        text: "Get the mod that shows your FPS in Minecraft.",
+        buttonText: "Download",
+        buttonLink: "https://edge.forgecdn.net/files/6548/369/showfps-1.01.jar"
+      }
+    };
+
+    // Buttons in sidebar and header
+    const buttons = sidebar.querySelectorAll('ul li button');
+    const homeBtn = document.getElementById('go-home');
+    const headerAboutBtn = document.querySelector('header button');
+
+    // Main content elements
+    const mainTitle = document.querySelector('main h1');
+    const mainText = document.querySelector('main p');
+    const mainButton = document.querySelector('main a.button');
+    const byText = document.querySelector('main p:last-of-type');
+
+    // Function to convert line breaks in about text
+    function formatAboutText(text) {
+      return text.replace(/\n/g, '<br />');
+    }
+
+    // Function to switch page
+    function switchPage(pageKey) {
+      // Update active button styling
+      buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.page === pageKey);
+      });
+      headerAboutBtn.classList.toggle('active', pageKey === 'about');
+
+      // Update main content
+      const page = pages[pageKey];
+      if (!page) return;
+
+      mainTitle.textContent = page.title;
+
+      if (pageKey === 'about') {
+        mainText.innerHTML = formatAboutText(page.text);
+      } else {
+        mainText.textContent = page.text;
+      }
+
+      mainButton.textContent = page.buttonText;
+      mainButton.href = page.buttonLink;
+      mainButton.style.display = page.buttonText ? 'inline-block' : 'none';
+
+      // Show By: Me only on download page
+      byText.style.display = pageKey === 'download' ? 'block' : 'none';
+
+      // Close sidebar on small screens after selection
+      if (window.innerWidth <= 768) {
+        sidebar.classList.add('collapsed');
+      }
+    }
+
+    // Add click listeners to sidebar buttons
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        switchPage(button.dataset.page);
+      });
+    });
+
+    //
+    Home button
+homeBtn.addEventListener('click', () => {
+switchPage('home');
+});
+    // Header About Me button
+headerAboutBtn.addEventListener('click', () => {
+  switchPage('about');
+});
+
+// Load home by default
+switchPage('home');
+    </script> </body> </html>
+
