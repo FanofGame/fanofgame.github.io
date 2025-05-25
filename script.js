@@ -16,15 +16,15 @@ const pages = {
   },
   about: {
     title: "About Me",
-    text: "I'm FanofGame — a passionate gamer and developer who loves sleek designs and coding cool projects.",
+    text: `👋 Hi, I’m @FanofGamess
+👀 I’m interested in Minecraft Forks
+🌱 I’m currently learning how to fork mods to newer versions
+💞️ I’m looking to collaborate on nothing
+📫 How to reach me nowhere
+😄 Pronouns: he/him
+⚡ Fun fact: I like minecraft`,
     buttonText: "Learn More",
     buttonLink: "#"
-  },
-  contact: {
-    title: "Contact Me",
-    text: "Got questions or want to connect? Reach out anytime via email or social media!",
-    buttonText: "Send Email",
-    buttonLink: "mailto:fanofgame@example.com"
   }
 };
 
@@ -54,7 +54,8 @@ function switchPage(pageKey) {
   if (!page) return;
 
   mainTitle.textContent = page.title;
-  mainText.textContent = page.text;
+  // Replace newlines with <br> for multiline display
+  mainText.innerHTML = page.text.replace(/\n/g, '<br>');
   mainButton.textContent = page.buttonText;
   mainButton.href = page.buttonLink;
 
