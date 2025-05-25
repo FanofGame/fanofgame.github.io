@@ -1,11 +1,3 @@
-// Sidebar toggle for mobile
-const sidebar = document.getElementById('sidebar');
-const toggleBtn = sidebar.querySelector('.toggle-btn');
-
-toggleBtn.addEventListener('click', () => {
-  sidebar.classList.toggle('collapsed');
-});
-
 // Page content data
 const pages = {
   home: {
@@ -23,30 +15,19 @@ const pages = {
 📫 How to reach me nowhere
 😄 Pronouns: he/him
 ⚡ Fun fact: I like minecraft`,
-    buttonText: "Learn More",
-    buttonLink: "#"
+    buttonText: "Download ShowFPS",
+    buttonLink: "https://edge.forgecdn.net/files/6548/369/showfps-1.01.jar"
   }
 };
 
-// Sidebar buttons
-const buttons = sidebar.querySelectorAll('ul li button');
-
-// Main content elements
 const mainTitle = document.querySelector('main h1');
 const mainText = document.querySelector('main p');
 const mainButton = document.querySelector('main a.button');
 
-function switchPage(pageKey) {
-  buttons.forEach(btn => {
-    if (btn.dataset.page === pageKey) {
-      btn.classList.add('active');
-      btn.setAttribute('aria-current', 'page');
-    } else {
-      btn.classList.remove('active');
-      btn.removeAttribute('aria-current');
-    }
-  });
+const homeLogo = document.getElementById('home-logo');
+const aboutLink = document.getElementById('about-link');
 
+function switchPage(pageKey) {
   const page = pages[pageKey];
   if (!page) return;
 
@@ -54,19 +35,16 @@ function switchPage(pageKey) {
   mainText.textContent = page.text;
   mainButton.textContent = page.buttonText;
   mainButton.href = page.buttonLink;
-
-  // Close sidebar on mobile after selecting page
-  if (window.innerWidth <= 768) {
-    sidebar.classList.add('collapsed');
-  }
 }
 
-// Attach event listeners for buttons
-buttons.forEach(button => {
-  button.addEventListener('click', () => {
-    switchPage(button.dataset.page);
-  });
+// Click handlers
+homeLogo.addEventListener('click', () => {
+  switchPage('home');
+});
+aboutLink.addEventListener('click', e => {
+  e.preventDefault();
+  switchPage('about');
 });
 
-// Initialize default page
+// Initialize to home page on load
 switchPage('home');
