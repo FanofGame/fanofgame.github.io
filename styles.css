@@ -1,10 +1,4 @@
-/* Reset & base */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Fonts: Bitter for body, Playfair Display for headings (Young Serif alternative) */
 body {
   font-family: 'Bitter', serif;
   background-color: #BFBBF;
@@ -12,6 +6,8 @@ body {
   display: flex;
   height: 100vh;
   overflow: hidden;
+  position: relative;
+  margin: 0;
 }
 
 #sidebar {
@@ -22,16 +18,39 @@ body {
   flex-direction: column;
   padding-top: 20px;
   user-select: none;
+  position: relative;
+  z-index: 1;
 }
 
 .logo {
-  font-family: 'Young Serif', serif;
-  font-size: 2rem;
+  font-family: 'Playfair Display', serif; /* Young Serif alternative */
+  font-size: 2.4rem;
   color: #212020;
   padding: 15px 20px;
   cursor: pointer;
   border-bottom: 1px solid #212020;
   user-select: none;
+}
+
+/* About Me link fixed top right corner */
+#about-link {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  font-family: 'Playfair Display', serif;
+  color: #212020;
+  text-decoration: none;
+  font-weight: 600;
+  background: transparent;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+#about-link:hover {
+  background-color: #d6d4e8;
 }
 
 main {
@@ -41,7 +60,7 @@ main {
 }
 
 main h1 {
-  font-family: 'Young Serif', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 2.8rem;
   margin-bottom: 20px;
   color: #212020;
@@ -70,25 +89,4 @@ main a.button {
 
 main a.button:hover {
   background-color: #3a3939;
-}
-
-/* About Me top right */
-#about-link {
-  position: fixed;
-  top: 15px;
-  right: 20px;
-  font-family: 'Young Serif', serif;
-  color: #212020;
-  text-decoration: none;
-  font-weight: 600;
-  background: transparent;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-  z-index: 1000;
-  cursor: pointer;
-}
-
-#about-link:hover {
-  background-color: #d6d4e8;
 }
