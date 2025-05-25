@@ -3,98 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FanofGame</title>
-  <style>
-    /* Reset */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background: linear-gradient(135deg, #1e1e2f, #28313b);
-      color: #eee;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      flex-direction: column;
-      text-align: center;
-      padding: 20px;
-      overflow-x: hidden;
-    }
-
-    h1 {
-      font-size: 3rem;
-      letter-spacing: 3px;
-      margin-bottom: 0.5em;
-      animation: fadeInUp 1s ease forwards;
-    }
-
-    p {
-      font-size: 1.25rem;
-      max-width: 600px;
-      line-height: 1.6;
-      margin-bottom: 2em;
-      animation: fadeInUp 1.2s ease forwards;
-      opacity: 0;
-      animation-fill-mode: forwards;
-      animation-delay: 0.2s;
-    }
-
-    a.button {
-      background: #ff5e62;
-      background: linear-gradient(45deg, #ff5e62, #ff9966);
-      color: white;
-      padding: 1em 2.5em;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.2rem;
-      box-shadow: 0 5px 15px rgba(255, 94, 98, 0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: fadeInUp 1.4s ease forwards;
-      opacity: 0;
-      animation-fill-mode: forwards;
-      animation-delay: 0.4s;
-    }
-
-    a.button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 10px 25px rgba(255, 94, 98, 0.7);
-    }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Subtle floating animation on body background */
-    @keyframes backgroundShift {
-      0%, 100% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-    }
-
-    body {
-      background-size: 200% 200%;
-      animation: backgroundShift 20s ease infinite;
-    }
-  </style>
+  <title>FanofGamess's Website</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Welcome to FanofGame</h1>
-  <p>Your sleek, modern site powered by GitHub Pages. Explore. Create. Game on.</p>
-  <a href="https://github.com/FanofGame" class="button" target="_blank" rel="noopener noreferrer">Visit My GitHub</a>
+
+  <nav id="sidebar" class="collapsed">
+    <button class="toggle-btn" aria-label="Toggle menu">&#9776;</button>
+    <h2>FanofGamess</h2>
+    <ul>
+      <li><button class="active" data-page="home" aria-current="page">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-6 0h6" />
+        </svg>
+        Home
+      </button></li>
+      <li><button data-page="about">About</button></li>
+      <li><button data-page="contact">Contact</button></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>FanofGamess's Website</h1>
+    <p>Your sleek, modern site powered by GitHub Pages. Explore. Create. Game on.</p>
+    <a href="https://github.com/FanofGame" class="button" target="_blank" rel="noopener noreferrer">Visit My GitHub</a>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
