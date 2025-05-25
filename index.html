@@ -12,6 +12,9 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;700&family=PT+Serif:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;700&family=PT+Serif:wght@400;700&display=swap"></noscript>
 
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     /* CSS Variables for easy theming */
     :root {
@@ -23,7 +26,7 @@
       --text-light: #555;
       --bg-color: #f8f8ff;
       --shadow: 2px 0 5px rgba(0,0,0,0.1);
-      --transition: 0.3s ease;
+      --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       --border-radius: 8px;
     }
 
@@ -64,8 +67,9 @@
       flex-direction: column;
       align-items: center;
       padding: 20px 0;
-      transition: width var(--transition);
+      transition: all var(--transition);
       z-index: 1000;
+      transform: translateX(0);
     }
 
     #sidebar.collapsed {
@@ -73,11 +77,11 @@
       overflow: hidden;
     }
 
-    /* Hamburger menu */
+    /* Hamburger menu - made smaller */
     #sidebar .toggle-btn {
       cursor: pointer;
-      width: 40px;
-      height: 30px;
+      width: 30px;
+      height: 24px;
       margin-bottom: 30px;
       display: flex;
       flex-direction: column;
@@ -89,21 +93,22 @@
 
     #sidebar .toggle-btn span {
       display: block;
-      height: 4px;
+      height: 3px;
       background-color: var(--text-color);
       border-radius: 2px;
-      transition: var(--transition);
+      transition: all var(--transition);
       transform-origin: center;
     }
 
     #sidebar.collapsed .toggle-btn span:nth-child(2) {
       opacity: 0;
+      transform: translateX(-10px);
     }
     #sidebar.collapsed .toggle-btn span:nth-child(1) {
-      transform: rotate(45deg) translate(7px, 7px);
+      transform: rotate(45deg) translate(5px, 5px);
     }
     #sidebar.collapsed .toggle-btn span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
+      transform: rotate(-45deg) translate(5px, -5px);
     }
 
     /* Sidebar navigation */
@@ -187,7 +192,7 @@
       padding: 12px 25px;
       border-radius: var(--border-radius);
       font-weight: bold;
-      transition: var(--transition);
+      transition: all var(--transition);
       display: inline-block;
       border: none;
       cursor: pointer;
@@ -198,12 +203,54 @@
     .button:focus-visible {
       background-color: var(--primary-color);
       transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     .byline {
       font-size: 0.9rem;
       color: var(--text-light);
-      margin-top: -20px;
+      margin-top: 10px;
+    }
+
+    /* ShowFPS card */
+    .mod-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 30px;
+      max-width: 400px;
+      margin: 30px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform var(--transition);
+      text-align: center;
+    }
+
+    .mod-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .mod-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2rem;
+      color: var(--primary-color);
+      box-shadow: 0 4px 8px rgba(75, 71, 196, 0.2);
+    }
+
+    .mod-title {
+      font-family: 'PT Serif', serif;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .mod-description {
+      margin-bottom: 20px;
+      color: var(--text-light);
     }
 
     /* Header */
@@ -243,28 +290,51 @@
       border-radius: var(--border-radius);
     }
 
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
     /* Responsive design */
     @media (max-width: 768px) {
       #sidebar {
-        width: 60px;
-        overflow: hidden;
-      }
-
-      #sidebar:not(.collapsed) {
+        transform: translateX(-100%);
         width: 220px;
       }
 
+      #sidebar.collapsed {
+        transform: translateX(0);
+        width: 60px;
+      }
+
       main {
+        margin-left: 0;
+      }
+
+      #sidebar.collapsed ~ main {
         margin-left: 60px;
       }
 
       header {
+        left: 0;
+      }
+
+      #sidebar.collapsed ~ header {
         left: 60px;
       }
     }
 
     @media (max-width: 480px) {
       main {
+        padding: 20px;
+      }
+      
+      .mod-card {
         padding: 20px;
       }
     }
@@ -292,10 +362,10 @@
   </header>
 
   <main role="main">
-    <h1>Loading...</h1>
-    <p></p>
-    <a class="button" href="#" target="_blank" rel="noopener noreferrer"></a>
-    <p class="byline">By: Me</p>
+    <h1 class="fade-in">Loading...</h1>
+    <p class="fade-in"></p>
+    <div id="mod-card-container"></div>
+    <a class="button fade-in" href="#" target="_blank" rel="noopener noreferrer"></a>
   </main>
 
   <script>
@@ -310,19 +380,22 @@
           title: "Sleek.",
           text: "Your sleek, modern site powered by GitHub Pages. Explore. Create. Game on.",
           buttonText: "Visit My GitHub",
-          buttonLink: "https://github.com/FanofGame"
+          buttonLink: "https://github.com/FanofGame",
+          showModCard: true
         },
         about: {
           title: "About Me",
           text: "👋 Hi, I'm @FanofGamess\n👀 I'm interested in Minecraft Forks\n🌱 I'm currently learning how to fork mods to newer versions\n💞️ I'm looking to collaborate on nothing\n📫 How to reach me nowhere\n😄 Pronouns: he/him\n⚡ Fun fact: I like minecraft",
           buttonText: "Learn More",
-          buttonLink: "#"
+          buttonLink: "#",
+          showModCard: false
         },
         download: {
           title: "Download ShowFPS",
           text: "Get the mod that shows your FPS in Minecraft.",
           buttonText: "Download",
-          buttonLink: "https://edge.forgecdn.net/files/6548/369/showfps-1.01.jar"
+          buttonLink: "https://edge.forgecdn.net/files/6548/369/showfps-1.01.jar",
+          showModCard: false
         }
       };
 
@@ -333,7 +406,27 @@
       const mainTitle = document.querySelector('main h1');
       const mainText = document.querySelector('main p');
       const mainButton = document.querySelector('main a.button');
-      const byText = document.querySelector('.byline');
+      const modCardContainer = document.getElementById('mod-card-container');
+
+      // Create mod card HTML
+      function createModCard() {
+        return `
+          <div class="mod-card fade-in">
+            <div class="mod-icon">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <h3 class="mod-title">ShowFPS</h3>
+            <p class="mod-description">Displays your FPS in Minecraft</p>
+            <a href="https://edge.forgecdn.net/files/6548/369/showfps-1.01.jar" 
+               class="button" 
+               target="_blank" 
+               rel="noopener noreferrer">
+              Download
+            </a>
+            <p class="byline">By: Me</p>
+          </div>
+        `;
+      }
 
       // Toggle sidebar
       toggleBtn.addEventListener('click', function() {
@@ -361,24 +454,38 @@
         const page = pages[pageKey] || pages.home;
         
         mainTitle.textContent = page.title;
+        mainTitle.classList.add('fade-in');
         mainText.innerHTML = pageKey === 'about' ? formatAboutText(page.text) : page.text;
+        mainText.classList.add('fade-in');
         
         if (page.buttonText) {
           mainButton.textContent = page.buttonText;
           mainButton.href = page.buttonLink;
           mainButton.style.display = 'inline-block';
+          mainButton.classList.add('fade-in');
         } else {
           mainButton.style.display = 'none';
         }
 
-        // Toggle byline visibility
-        byText.style.display = pageKey === 'download' ? 'block' : 'none';
+        // Show/hide mod card
+        if (page.showModCard) {
+          modCardContainer.innerHTML = createModCard();
+        } else {
+          modCardContainer.innerHTML = '';
+        }
 
         // Close sidebar on mobile after selection
         if (window.innerWidth <= 768) {
           sidebar.classList.add('collapsed');
           toggleBtn.setAttribute('aria-expanded', 'false');
         }
+
+        // Remove fade-in class after animation completes
+        setTimeout(() => {
+          mainTitle.classList.remove('fade-in');
+          mainText.classList.remove('fade-in');
+          mainButton.classList.remove('fade-in');
+        }, 500);
       }
 
       // Add event listeners
@@ -399,6 +506,11 @@
           toggleBtn.setAttribute('aria-expanded', 'false');
         }
       });
+
+      // Auto-collapse sidebar on mobile
+      if (window.innerWidth <= 768) {
+        sidebar.classList.add('collapsed');
+      }
     });
   </script>
 </body>
